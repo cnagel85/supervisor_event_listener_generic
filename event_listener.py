@@ -10,18 +10,22 @@ from supervisor import childutils
 class EventListener:
     def __init__(self, defaultHandler=None):
         self.events_map = {}
-        self.validate_handler(defaultHandler)
-        self.defaultHandler = defaultHandler
+        self.set_default_handler(defaultHandler)
 
-    def validate_handler(self, handler):
+    def validate_handler(self, handler=None):
         if handler:
             args, _, _, _ = inspect.getargspec(handler)
             if len(args) != 2:
                 raise EventListenerError("handlers must have exactly 2 arguments")
+            return handler
+        else:
+            return None
+
+    def set_default_handler(self, handler):
+        self.defaultHandler = self.validate_handler(handler)
 
     def register_event_handler(self, eventname, handler):
-        self.validate_handler(handler)
-        self.events_map[eventname] = handler
+        self.events_map[eventname] = self.validate_handler(handler)
 
     def handle_event(self, headers, payload):
         eventName = headers['eventname']
