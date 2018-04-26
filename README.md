@@ -21,7 +21,7 @@ if __name__ == '__main__':
 ```
 
 ## Handler Functions
-Event handler functions need to accept two arguements for the headers and payload dictionaries that are the return values from childutils.listener.wait() from the supervisor library.
+Event handler functions need to accept two parameters for the headers and payload dictionaries that are the return values from childutils.listener.wait() from the supervisor library.
 Header tokens are listed at [Supervisor Events Documentation](http://supervisord.org/events.html#header-tokens) and the payload is deteremined by the type of event and can be found in the supervisor event types documentation
 
 
